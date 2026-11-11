@@ -2,6 +2,33 @@
 **/*.pem
 **/*.csv
 
+# Terraform
+# Local .terraform folder (contains plugins and modules)
+.terraform/
+
+# .tfstate files (contains sensitive data and infrastructure mapping)
+*.tfstate
+*.tfstate.*
+
+# Crash log files
+crash.log
+crash.*.log
+
+# Exclude all .tfvars files (best practice for security)
+# If you want to commit "safe" variables, use a specific name like 'terraform.tfvars.example'
+*.tfvars
+*.tfvars.json
+
+# Ignore override files
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+
+# Ignore CLI configuration files
+.terraformrc
+terraform.rc
+
 
 # ---------------------------------------------------------
 # UNIVERSAL / MULTI-TECH IGNORE RULES (ADDED BELOW)
