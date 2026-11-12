@@ -24,7 +24,7 @@ spec:
               memory: "512Mi"
           env:
             - name: ENV_VALUE
-              value: "Hello from app.yaml"
+              value: "Hello from koushik with changes done in app.yaml"
             - name: DB_PASSWORD
               value: "cGFzc3dvcmQ=" # base64 for 'password'
           ports:
