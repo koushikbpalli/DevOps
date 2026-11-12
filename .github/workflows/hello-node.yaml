@@ -1,5 +1,4 @@
-name: second CI Demo
-
+name: hello-node CI Demo
 on:
   push:
     # path: ""
