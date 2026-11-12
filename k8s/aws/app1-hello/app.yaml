@@ -14,23 +14,19 @@ spec:
     spec:
       containers:
         - name: app1-hello
-          image: dcode007/hello-python:latest
+          image: koushik395/hello-node:latest
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "128Mi"
+            limits:
+              cpu: "500m"
+              memory: "512Mi"
           env:
             - name: ENV_VALUE
               value: "Hello from app.yaml"
             - name: DB_PASSWORD
               value: "cGFzc3dvcmQ=" # base64 for 'password'
-          # env:
-          #   - name: ENV_VALUE
-          #     valueFrom:
-          #       configMapKeyRef:
-          #         name: hello-app-config
-          #         key: HELLO_APP_MESSAGE
-          #   - name: DB_PASSWORD
-          #     valueFrom:
-          #       secretKeyRef:
-          #         name: hello-db-secret
-          #         key: HELLO_DB_PASSWORD
           ports:
             - containerPort: 3000
 ---
@@ -44,4 +40,4 @@ spec:
   type: LoadBalancer
   ports:
     - port: 80
-      targetPort: 3000  
+      targetPort: 3000
