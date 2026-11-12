@@ -8,7 +8,9 @@ on:
 jobs:
   build-test:
     runs-on: ubuntu-latest
-
+    defaults:
+      run:
+        working-directory: docker/app1-hello/node
     steps:
       - name: Checkout Code
         uses: actions/checkout@v7
@@ -19,7 +21,6 @@ jobs:
           node-version: "26"
 
       - name: Install Dependencies
-        working-directory: docker/app1-hello/node
         run: npm ci
 
       - name: Run Tests (If any)
