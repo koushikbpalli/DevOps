@@ -24,6 +24,10 @@ jobs:
         with:
           node-version: "26"
 
+      - name: create env file
+        run: |
+          echo "VITE_API_URL=/api" > .env
+
       - name: Install Dependencies
         run: npm ci
 
@@ -47,6 +51,10 @@ jobs:
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_PASSWORD }}
+
+      - name: create env file
+        run: |
+          echo "VITE_API_URL=/api" > .env
 
       - name: Build and Push Docker Image
         uses: docker/build-push-action@v7
