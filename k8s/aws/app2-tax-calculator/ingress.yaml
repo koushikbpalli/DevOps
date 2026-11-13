@@ -3,27 +3,29 @@ kind: Ingress
 metadata:
   name: tax-app-ingress
   annotations:
-    nginx.ingress.kubernetes.io/use-regex: "true"
-    nginx.ingress.kubernetes.io/rewrite-target: /$1
+    alb.ingress.kubernetes.io/scheme: internet-facing
+    alb.ingress.kubernetes.io/target-type: ip
+    alb.ingress.kubernetes.io/listen-ports: '[{"HTTP": 80}]'
+    alb.ingress.kubernetes.io/healthcheck-path: /
 spec:
   ingressClassName: alb
   rules:
     - http:
         paths:
-          # Frontend (React / Vite)
-          - path: /(.*)
-            pathType: Prefix
-            backend:
-              service:
-                name: frontend
-                port:
-                  number: 80
-
-          # Backend API
-          - path: /api/(.*)
+          # Backend API (specific path first)
+          - path: /api
             pathType: Prefix
             backend:
               service:
                 name: service-a
+                port:
+                  number: 80
+
+          # Frontend (everything else)
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: frontend
                 port:
                   number: 80
