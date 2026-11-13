@@ -7,20 +7,20 @@ const HOSTNAME = process.env.HOSTNAME || require("os").hostname();
 const TAX_SERVICE_URL = process.env.TAX_SERVICE_URL || "http://service-b:4000";
 
 // CORS (must come before routes)
-const allowedOrigins = [
-  process.env.FRONTEND_URL || "http://localhost:5173",
-];
+const allowedOrigins = [process.env.FRONTEND_URL || "http://localhost:5173"];
 
-app.use(cors({
-  origin: (origin, callback) => {
-    if (!origin) return callback(null, true); // mobile/curl
-    if (allowedOrigins.includes(origin)) return callback(null, true);
-    return callback(new Error("CORS blocked"));
-  }
-}));
+app.use(
+  cors({
+    origin: (origin, callback) => {
+      if (!origin) return callback(null, true); // mobile/curl
+      if (allowedOrigins.includes(origin)) return callback(null, true);
+      return callback(new Error("CORS blocked"));
+    },
+  }),
+);
 
 // Route
-app.get("/price", async (req, res) => {
+app.get("/api/price", async (req, res) => {
   const amount = Number(req.query.amount || 0);
   const country = (req.query.country || "DEFAULT").toUpperCase();
 
@@ -33,7 +33,7 @@ app.get("/price", async (req, res) => {
     tax,
     total: amount + tax,
     container: HOSTNAME,
-    service_b_container: r.data.container
+    service_b_container: r.data.container,
   });
 });
 

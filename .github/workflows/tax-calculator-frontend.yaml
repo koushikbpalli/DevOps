@@ -4,7 +4,7 @@ on:
     branches:
       - main
     paths:
-      - docker/app2-tax-calculator/tax-calculator-frontend
+      - docker/app2-tax-calculator/tax-calculator-frontend/**
   workflow_dispatch:
 
 jobs:
@@ -94,3 +94,8 @@ jobs:
         run: |
           kubectl apply -f k8s/aws/app2-tax-calculator/frontend/app.yaml
           kubectl apply -f k8s/aws/app2-tax-calculator/ingress.yaml
+
+      - name: Roll out new image
+        run: |
+          kubectl rollout restart deployment/frontend
+          kubectl rollout status deployment/frontend --timeout=120s
