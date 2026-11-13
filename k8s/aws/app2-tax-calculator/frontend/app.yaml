@@ -14,7 +14,14 @@ spec:
     spec:
       containers:
         - name: frontend
-          image: dcode007/tax-calculator-frontend:latest
+          image: koushik395/tax-calculator-frontend:latest
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "128Mi"
+            limits:
+              cpu: "500m"
+              memory: "512Mi"
           ports:
             - containerPort: 80
 ---
